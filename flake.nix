@@ -5,9 +5,18 @@
     nixpkgs.url = "github:NixOS/nixpkgs/a0f3e10d94359665dba45b71b4227b0aeb851f8e";
   };
 
-  outputs = {...}: {
+  outputs = {nixpkgs, ...}: let
+    pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    customKernel = pkgs.callPackage ./kernel.nix {};
+    i915SRIOVModule = (pkgs.linuxPackagesFor customKernel).callPackage ./i915-sriov-dkms.nix {};
+  in {
     nixosModules = {
-      i915-sriov = ./default.nix;
+      i915-sriov = import ./default.nix {inherit customKernel i915SRIOVModule;};
+    };
+
+    packages.x86_64-linux = {
+      default = i915SRIOVModule;
+      kernel = customKernel;
     };
   };
 }

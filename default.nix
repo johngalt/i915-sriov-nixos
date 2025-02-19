@@ -1,19 +1,11 @@
 # From https://github.com/vadika/nixos-config/blob/e7c5ab289ea22e2d2f0fe30f21672d785400ece2/i915-iov.nix
 {
   pkgs,
-  lib,
+  customKernel,
+  i915SRIOVModule,
   ...
 }: let
-  customKernel = pkgs.linux_6_12.override {
-    structuredExtraConfig = with lib.kernel; {
-      DRM_I915_PXP = yes;
-      INTEL_MEI_PXP = module;
-    };
-  };
-
   customKernelPackages = pkgs.linuxPackagesFor customKernel;
-
-  i915SRIOVModule = customKernelPackages.callPackage ./i915-sriov-dkms.nix {};
 in {
   boot.kernelPackages = customKernelPackages;
   boot.extraModulePackages = [i915SRIOVModule];
