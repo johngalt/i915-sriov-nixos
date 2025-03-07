@@ -12,6 +12,7 @@
   in {
     nixosModules = {
       i915-sriov = import ./default.nix {inherit customKernel i915SRIOVModule;};
+      binary-cache = import ./binary-cache.nix;
     };
 
     packages.x86_64-linux = {

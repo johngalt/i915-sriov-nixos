@@ -2,7 +2,9 @@
 Right now, this flake is **guest only**, but I may make a host module in the future.
 
 # Installation
-For flakes, add this flake as an input, as such:
+**READ**: If you do not want this to take 30+ minutes to compile, you should add the binary cache. Note that this should be done **before** you add the i915-sriov nixosModule.
+
+For flakes, add this flake as an input, as such.
 ```nix
 {
   ... # Description and other flake attributes
@@ -25,15 +27,16 @@ For flakes, add this flake as an input, as such:
       modules = [
         ... # More modules like home manager and your configuration.nix
 
+        # If you didn't read above, this MUST BE ADDED AND YOUR CONFIG REBUILT BEFORE ADDING THE NEXT MODULE if you don't want 30+ minute compile times
+        i915-sriov-nixos.nixosModules.binary-cache
+
+        # Did you read the comment above?
         i915-sriov-nixos.nixosModules.i915-sriov
       ];
     };
   };
 }
 ```
-
-Unless you know what you are doing, are a gentoo user, or are _desperate_ to save 40MB on your disk, you can override the nixpkgs input for this flake, with `i915-sriov-nixos.inputs.nixpkgs.follows = "nixpkgs"`.
-However, this will invalidate the binary cache that the flake adds, so you will have to wait a while (30 mins on a fast CPU) for the kernel and dkms module to recompile.
 
 # Attribution
 The bulk of this config are from [vadika's NixOS config](https://github.com/vadika/nixos-config), but modified to work for guests instead.
