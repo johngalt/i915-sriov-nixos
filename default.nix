@@ -1,6 +1,7 @@
 # From https://github.com/vadika/nixos-config/blob/e7c5ab289ea22e2d2f0fe30f21672d785400ece2/i915-iov.nix
 {
   pkgs,
+  lib,
   customKernel,
   i915SRIOVModule,
   ...
@@ -22,6 +23,4 @@ in {
   boot.postBootCommands = ''
     /run/current-system/sw/bin/depmod -a ${customKernel.modDirVersion}
   '';
-
-  hardware.graphics.extraPackages = with pkgs; [vaapiIntel intel-media-driver vpl-gpu-rt intel-ocl];
 }

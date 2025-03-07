@@ -4,6 +4,7 @@
   fetchFromGitHub,
   kernel,
   xz,
+  ...
 }:
 stdenv.mkDerivation rec {
   pname = "i915-sriov-dkms";

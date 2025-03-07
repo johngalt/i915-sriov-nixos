@@ -1,6 +1,7 @@
 {
   linux_6_12,
   lib,
+  ...
 }:
 linux_6_12.override {
   structuredExtraConfig = with lib.kernel; {

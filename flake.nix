@@ -7,11 +7,12 @@
 
   outputs = {nixpkgs, ...}: let
     pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    lib = nixpkgs.lib;
     customKernel = pkgs.callPackage ./kernel.nix {};
     i915SRIOVModule = (pkgs.linuxPackagesFor customKernel).callPackage ./i915-sriov-dkms.nix {};
   in {
     nixosModules = {
-      i915-sriov = import ./default.nix {inherit customKernel i915SRIOVModule;};
+      i915-sriov = import ./default.nix {inherit pkgs lib customKernel i915SRIOVModule;};
       binary-cache = import ./binary-cache.nix;
     };
 
