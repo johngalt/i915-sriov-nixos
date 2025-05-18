@@ -2,7 +2,7 @@
   description = "NixOS module which provides a kernel and dkms module for i915 SR-IOV";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
   outputs = {nixpkgs, ...}: let
@@ -13,7 +13,6 @@
   in {
     nixosModules = {
       i915-sriov = import ./default.nix {inherit pkgs lib customKernel i915SRIOVModule;};
-      binary-cache = import ./binary-cache.nix;
     };
 
     packages.x86_64-linux = {
