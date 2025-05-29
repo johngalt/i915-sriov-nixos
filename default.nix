@@ -18,7 +18,6 @@ in {
 
   boot.extraModprobeConfig = ''
     options i915-sriov enable_guc=3
-    alias i915 915-sriov
   '';
 
   boot.postBootCommands = ''
