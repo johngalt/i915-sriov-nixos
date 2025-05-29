@@ -11,14 +11,14 @@ in {
   boot.kernelPackages = customKernelPackages;
   boot.extraModulePackages = [i915SRIOVModule];
 
-  boot.blacklistedKernelModules = ["xe" "i915"];
+  boot.blacklistedKernelModules = ["xe"];
 
-  boot.kernelModules = ["i915-sriov"];
-  boot.initrd.kernelModules = ["i915-sriov"];
+  # boot.kernelModules = ["i915-sriov"];
+  # boot.initrd.kernelModules = ["i915-sriov"];
 
-  boot.extraModprobeConfig = ''
-    options i915-sriov enable_guc=3
-  '';
+  # boot.extraModprobeConfig = ''
+  #   options i915-sriov enable_guc=3
+  # '';
 
   # boot.postBootCommands = ''
   #   /run/current-system/sw/bin/depmod -a ${customKernel.modDirVersion}
