@@ -20,7 +20,7 @@ in {
     options i915-sriov enable_guc=3
   '';
 
-  boot.postBootCommands = ''
-    /run/current-system/sw/bin/depmod -a ${customKernel.modDirVersion}
-  '';
+  # boot.postBootCommands = ''
+  #   /run/current-system/sw/bin/depmod -a ${customKernel.modDirVersion}
+  # '';
 }
