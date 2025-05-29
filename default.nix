@@ -11,7 +11,7 @@ in {
   boot.kernelPackages = customKernelPackages;
   boot.extraModulePackages = [i915SRIOVModule];
 
-  boot.blacklistedKernelModules = ["xe"];
+  boot.blacklistedKernelModules = ["xe" "i915"];
 
   boot.kernelModules = ["i915-sriov"];
   boot.initrd.kernelModules = ["i915-sriov"];
