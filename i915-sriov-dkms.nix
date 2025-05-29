@@ -30,6 +30,7 @@ stdenv.mkDerivation rec {
       KERNELRELEASE=${kernel.modDirVersion}
   '';
 
+  # Use this install phase to overwrite default i915 module to force the custom one to load
   installPhase = ''
     install -D i915.ko $out/lib/modules/${kernel.modDirVersion}/kernel/drivers/gpu/drm/i915/i915.ko
   '';

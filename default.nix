@@ -13,11 +13,12 @@ in {
 
   boot.blacklistedKernelModules = ["xe"];
 
-  # boot.kernelModules = ["i915-sriov"];
-  # boot.initrd.kernelModules = ["i915-sriov"];
+  # Moved this to my host config
+  # boot.kernelModules = ["i915"];
+  # boot.initrd.kernelModules = ["i915"];
 
   # boot.extraModprobeConfig = ''
-  #   options i915-sriov enable_guc=3
+  #   options i915 enable_guc=3
   # '';
 
   # boot.postBootCommands = ''
