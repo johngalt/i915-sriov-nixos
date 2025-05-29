@@ -3,7 +3,7 @@
   lib,
   fetchFromGitHub,
   kernel,
-  xz,
+  # xz,
   ...
 }:
 stdenv.mkDerivation rec {
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1MlNNzNhxAkffnJ3eBh6nhXQIBsGH5ROIOyOlxsU8Qs=";
   };
 
-  nativeBuildInputs = kernel.moduleBuildDependencies ++ [xz];
+  nativeBuildInputs = kernel.moduleBuildDependencies;
 
   makeFlags = [
     "KERNELRELEASE=${kernel.modDirVersion}"
@@ -31,10 +31,14 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    mkdir -p $out/lib/modules/${kernel.modDirVersion}/extra
-    ${xz}/bin/xz -z -f i915.ko
-    cp i915.ko.xz $out/lib/modules/${kernel.modDirVersion}/extra/i915-sriov.ko.xz
+    install -D i915.ko $out/lib/modules/${kernel.modDirVersion}/kernel/drivers/gpu/drm/i915/i915.ko
   '';
+
+  # installPhase = ''
+  #   mkdir -p $out/lib/modules/${kernel.modDirVersion}/extra
+  #   # ${xz}/bin/xz -z -f i915.ko
+  #   cp i915.ko.xz $out/lib/modules/${kernel.modDirVersion}/extra/i915-sriov.ko.xz
+  # '';
 
   meta = {
     description = "Custom module for i915 SRIOV support";
